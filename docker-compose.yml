@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:16
+    environment: {POSTGRES_DB: tenders, POSTGRES_USER: tenders, POSTGRES_PASSWORD: tenders}
+    ports: ["5432:5432"]
+  app:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://tenders:tenders@db:5432/tenders
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: ChangeMe123!
+    depends_on: [db]
